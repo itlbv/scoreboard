@@ -110,5 +110,21 @@ class ScoreboardTest {
     }
 
     @Test
+    void shouldNotUpdateScoreWhenGameNotFound() {
+        // given
+        var scoreboard = new Scoreboard();
+        scoreboard.startNewGame(
+                Team.ARGENTINA,
+                Team.AUSTRALIA
+        );
+
+        // when, then
+        assertThrows(
+                GameNotFoundException.class,
+                () -> scoreboard.updateScore(Team.BRAZIL)
+        );
+    }
+
+    @Test
     void shouldGetAllGamesSortedByLastUpdated() {}
 }
