@@ -1,6 +1,8 @@
+import exceptions.GameNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ScoreboardTest {
 
@@ -26,6 +28,29 @@ class ScoreboardTest {
                         Team.AUSTRALIA
                 )
         );
+    }
+
+    @Test
+    void shouldThrowWhenGameNotFound() {
+        // given
+        var scoreboard = new Scoreboard();
+
+        // when
+        scoreboard.startNewGame(
+                Team.ARGENTINA,
+                Team.AUSTRALIA
+        );
+
+
+        // then
+        assertThrows(
+                GameNotFoundException.class,
+                () -> {
+                    scoreboard.getGame(
+                            Team.BRAZIL,
+                            Team.ARGENTINA
+                    );
+                });
     }
 
     @Test

@@ -1,4 +1,4 @@
-import exceptions.GameNotFound;
+import exceptions.GameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +14,10 @@ public class Scoreboard {
         var game = games.stream()
                 .filter(g -> g.getHome() == home)
                 .findFirst()
-                .orElseThrow(GameNotFound::new);
+                .orElseThrow(GameNotFoundException::new);
 
         if (game.getAway() != away) {
-            throw new GameNotFound();
+            throw new GameNotFoundException();
         }
 
         return game;
