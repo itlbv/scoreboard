@@ -1,10 +1,10 @@
 import java.util.Objects;
 
-class Game implements Cloneable {
+class Game {
     private final Team home;
     private final Team away;
 
-    private int[] score = {0, 0};
+    private final int[] score = {0, 0};
 
     public Game(Team home, Team away) {
         this.home = home;
