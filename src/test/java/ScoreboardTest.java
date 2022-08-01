@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ScoreboardTest {
 
@@ -54,7 +55,27 @@ class ScoreboardTest {
     }
 
     @Test
-    void shouldFinishGameAndRemoveFromScoreboard() {}
+    void shouldFinishGameAndRemoveFromScoreboard() {
+        // given
+        var scoreboard = new Scoreboard();
+        scoreboard.startNewGame(
+                Team.ARGENTINA,
+                Team.AUSTRALIA
+        );
+
+        // when
+        scoreboard.finishGame(
+                Team.ARGENTINA,
+                Team.AUSTRALIA
+        );
+
+        // then
+        assertTrue(
+                scoreboard.getGames()
+                        .stream()
+                        .noneMatch(g -> g.getHome() == Team.ARGENTINA)
+        );
+    }
 
     @Test
     void shouldUpdateScore() {}
