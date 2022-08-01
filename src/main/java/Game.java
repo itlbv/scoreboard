@@ -11,6 +11,14 @@ class Game {
         this.away = away;
     }
 
+    public void scoreHome() {
+        score[0]++;
+    }
+
+    public void scoreAway() {
+        score[1]++;
+    }
+
     public Team getHome() {
         return this.home;
     }

@@ -37,4 +37,19 @@ public class Scoreboard {
     public List<Game> getGames() {
         return games;
     }
+
+    public void updateScore(Team team) {
+        var game = getGames().stream()
+                .filter(g ->
+                        g.getHome() == team
+                                || g.getAway() == team)
+                .findAny()
+                .orElseThrow(GameNotFoundException::new);
+
+        if (team == game.getHome()) {
+            game.scoreHome();
+        } else {
+            game.scoreAway();
+        }
+    }
 }

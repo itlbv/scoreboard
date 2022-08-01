@@ -78,7 +78,36 @@ class ScoreboardTest {
     }
 
     @Test
-    void shouldUpdateScore() {}
+    void shouldUpdateScore() {
+        // when
+        var scoreboard = new Scoreboard();
+        scoreboard.startNewGame(
+                Team.ARGENTINA,
+                Team.AUSTRALIA
+        );
+
+        // given
+        scoreboard.updateScore(Team.ARGENTINA);
+        scoreboard.updateScore(Team.ARGENTINA);
+        scoreboard.updateScore(Team.AUSTRALIA);
+
+        // then
+        assertEquals(
+                2,
+                scoreboard.getGame(
+                        Team.ARGENTINA,
+                        Team.AUSTRALIA
+                ).getHomeScore()
+        );
+
+        assertEquals(
+                1,
+                scoreboard.getGame(
+                        Team.ARGENTINA,
+                        Team.AUSTRALIA
+                ).getAwayScore()
+        );
+    }
 
     @Test
     void shouldGetAllGamesSortedByLastUpdated() {}
