@@ -22,4 +22,19 @@ public class Scoreboard {
 
         return game;
     }
+
+    public void finishGame(Team home, Team away) {
+        var success =
+                getGames().removeIf(game ->
+                        game.getHome() == home
+                                && game.getAway() == away
+                );
+        if (!success) {
+            throw new GameNotFoundException();
+        }
+    }
+
+    public List<Game> getGames() {
+        return games;
+    }
 }
