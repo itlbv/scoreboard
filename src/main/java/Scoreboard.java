@@ -13,11 +13,15 @@ public class Scoreboard {
     public Game getGame(Team home, Team away) {
         var game = games.stream()
                 .filter(g -> g.getHome() == home)
-                .findFirst()
-                .orElseThrow(GameNotFoundException::new);
+                .findAny()
+                .orElseThrow(() -> new GameNotFoundException(
+                        String.format("Game not found for team %s", home)
+                ));
 
         if (game.getAway() != away) {
-            throw new GameNotFoundException();
+            throw new GameNotFoundException(
+                    String.format("Found game %s, which does not match with provided away team %s", game, away)
+            );
         }
 
         return game;
@@ -30,7 +34,9 @@ public class Scoreboard {
                                 && game.getAway() == away
                 );
         if (!success) {
-            throw new GameNotFoundException();
+            throw new GameNotFoundException(
+                    String.format("Game not found for teams %s and %s", home, away)
+            );
         }
     }
 
@@ -44,7 +50,9 @@ public class Scoreboard {
                         g.getHome() == team
                                 || g.getAway() == team)
                 .findAny()
-                .orElseThrow(GameNotFoundException::new);
+                .orElseThrow(() -> new GameNotFoundException(
+                        String.format("No games of %s team found", team)
+                ));
 
         if (team == game.getHome()) {
             game.scoreHome();

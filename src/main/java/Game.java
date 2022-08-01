@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Objects;
 
 class Game {
@@ -50,5 +51,14 @@ class Game {
     @Override
     public int hashCode() {
         return Objects.hash(home, away);
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "home=" + home +
+                ", away=" + away +
+                ", score=" + Arrays.toString(score) +
+                '}';
     }
 }
