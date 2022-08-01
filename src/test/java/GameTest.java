@@ -14,8 +14,13 @@ class GameTest {
 
         // when, then
         assertEquals(
-                new int[]{0, 0},
-                game.getScore()
+                0,
+                game.getHomeScore()
                 );
+
+        assertEquals(
+                0,
+                game.getAwayScore()
+        );
     }
 }
