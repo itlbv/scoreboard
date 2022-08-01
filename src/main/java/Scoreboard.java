@@ -38,7 +38,7 @@ public class Scoreboard {
         return games;
     }
 
-    public void updateScore(Team team) {
+    public int[] updateScore(Team team) {
         var game = getGames().stream()
                 .filter(g ->
                         g.getHome() == team
@@ -50,6 +50,29 @@ public class Scoreboard {
             game.scoreHome();
         } else {
             game.scoreAway();
+        }
+
+        sortGamesByTotalScoreAndLastUpdated(game);
+
+        return new int[] {game.getHomeScore(), game.getAwayScore()};
+    }
+
+    private void sortGamesByTotalScoreAndLastUpdated(Game lastUpdatedGame) {
+        var i = -1;
+        while (true) {
+            i++;
+            var currentGame = games.get(i);
+
+            if (currentGame == lastUpdatedGame) {
+                break;
+            }
+
+            if (currentGame.getTotalScore() <= lastUpdatedGame.getTotalScore()) {
+                // swap games
+                games.remove(lastUpdatedGame);
+                games.add(i, lastUpdatedGame);
+                i = -1;
+            }
         }
     }
 }

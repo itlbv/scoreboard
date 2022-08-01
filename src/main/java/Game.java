@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-class Game {
+class Game implements Cloneable {
     private final Team home;
     private final Team away;
 
@@ -33,6 +33,10 @@ class Game {
 
     public int getAwayScore() {
         return score[1];
+    }
+
+    public int getTotalScore() {
+        return score[0] + score[1];
     }
 
     @Override

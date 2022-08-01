@@ -156,6 +156,7 @@ class ScoreboardTest {
         argentinaAustralia.scoreHome();
         argentinaAustralia.scoreHome();
         argentinaAustralia.scoreHome();
+        argentinaAustralia.scoreHome();
 
         var mexicoCanada = new  Game(Team.MEXICO, Team.CANADA);
         mexicoCanada.scoreHome();
@@ -168,28 +169,36 @@ class ScoreboardTest {
         var uruguayItaly = new  Game(Team.URUGUAY, Team.ITALY);
         uruguayItaly.scoreHome();
         uruguayItaly.scoreAway();
+        uruguayItaly.scoreAway();
 
         var expectedGames = new ArrayList<Game>();
         expectedGames.add(argentinaAustralia);
-        expectedGames.add(mexicoCanada);
         expectedGames.add(spainBrazil);
         expectedGames.add(uruguayItaly);
+        expectedGames.add(mexicoCanada);
 
+        // when
         scoreboard.startNewGame(Team.MEXICO, Team.CANADA);
         scoreboard.startNewGame(Team.ARGENTINA, Team.AUSTRALIA);
         scoreboard.startNewGame(Team.URUGUAY, Team.ITALY);
         scoreboard.startNewGame(Team.SPAIN, Team.BRAZIL);
 
-        // when
+        scoreboard.updateScore(Team.ARGENTINA);
         scoreboard.updateScore(Team.ARGENTINA);
         scoreboard.updateScore(Team.MEXICO);
+        scoreboard.updateScore(Team.ITALY);
         scoreboard.updateScore(Team.ITALY);
         scoreboard.updateScore(Team.ARGENTINA);
         scoreboard.updateScore(Team.BRAZIL);
         scoreboard.updateScore(Team.ARGENTINA);
-        scoreboard.updateScore(Team.CANADA);
+        scoreboard.updateScore(Team.ARGENTINA);
         scoreboard.updateScore(Team.BRAZIL);
         scoreboard.updateScore(Team.URUGUAY);
+        scoreboard.updateScore(Team.BRAZIL);
+        scoreboard.updateScore(Team.SPAIN);
+        scoreboard.updateScore(Team.SPAIN);
+        scoreboard.updateScore(Team.SPAIN);
+        scoreboard.updateScore(Team.CANADA);
         scoreboard.updateScore(Team.ARGENTINA);
 
         // then
