@@ -78,6 +78,25 @@ class ScoreboardTest {
     }
 
     @Test
+    void shouldNotFinishGameWhenGameNotFound() {
+        // given
+        var scoreboard = new Scoreboard();
+        scoreboard.startNewGame(
+                Team.ARGENTINA,
+                Team.AUSTRALIA
+        );
+
+        // when, then
+        assertThrows(
+                GameNotFoundException.class,
+                () -> scoreboard.finishGame(
+                        Team.BRAZIL,
+                        Team.AUSTRALIA
+                )
+        );
+    }
+
+    @Test
     void shouldUpdateScore() {
         // when
         var scoreboard = new Scoreboard();
