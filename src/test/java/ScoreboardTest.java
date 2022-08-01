@@ -1,6 +1,8 @@
 import exceptions.GameNotFoundException;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -145,5 +147,52 @@ class ScoreboardTest {
     }
 
     @Test
-    void shouldGetAllGamesSortedByLastUpdated() {}
+    void shouldGetAllGamesSortedByTotalScore() {
+        // given
+        var scoreboard = new Scoreboard();
+
+        var argentinaAustralia = new Game(Team.ARGENTINA, Team.AUSTRALIA);
+        argentinaAustralia.scoreHome();
+        argentinaAustralia.scoreHome();
+        argentinaAustralia.scoreHome();
+        argentinaAustralia.scoreHome();
+
+        var mexicoCanada = new  Game(Team.MEXICO, Team.CANADA);
+        mexicoCanada.scoreHome();
+        mexicoCanada.scoreAway();
+
+        var spainBrazil = new  Game(Team.SPAIN, Team.BRAZIL);
+        spainBrazil.scoreAway();
+        spainBrazil.scoreAway();
+
+        var uruguayItaly = new  Game(Team.URUGUAY, Team.ITALY);
+        uruguayItaly.scoreHome();
+        uruguayItaly.scoreAway();
+
+        var expectedGames = new ArrayList<Game>();
+        expectedGames.add(argentinaAustralia);
+        expectedGames.add(mexicoCanada);
+        expectedGames.add(spainBrazil);
+        expectedGames.add(uruguayItaly);
+
+        scoreboard.startNewGame(Team.MEXICO, Team.CANADA);
+        scoreboard.startNewGame(Team.ARGENTINA, Team.AUSTRALIA);
+        scoreboard.startNewGame(Team.URUGUAY, Team.ITALY);
+        scoreboard.startNewGame(Team.SPAIN, Team.BRAZIL);
+
+        // when
+        scoreboard.updateScore(Team.ARGENTINA);
+        scoreboard.updateScore(Team.MEXICO);
+        scoreboard.updateScore(Team.ITALY);
+        scoreboard.updateScore(Team.ARGENTINA);
+        scoreboard.updateScore(Team.BRAZIL);
+        scoreboard.updateScore(Team.ARGENTINA);
+        scoreboard.updateScore(Team.CANADA);
+        scoreboard.updateScore(Team.BRAZIL);
+        scoreboard.updateScore(Team.URUGUAY);
+        scoreboard.updateScore(Team.ARGENTINA);
+
+        // then
+        assertEquals(expectedGames, scoreboard.getGames());
+    }
 }

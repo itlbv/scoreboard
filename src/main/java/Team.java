@@ -1,5 +1,10 @@
 public enum Team {
-    BRAZIL,
     ARGENTINA,
     AUSTRALIA,
+    BRAZIL,
+    CANADA,
+    ITALY,
+    MEXICO,
+    SPAIN,
+    URUGUAY
 }
