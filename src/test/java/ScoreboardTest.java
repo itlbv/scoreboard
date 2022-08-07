@@ -48,12 +48,10 @@ class ScoreboardTest {
         // then
         assertThrows(
                 GameNotFoundException.class,
-                () -> {
-                    scoreboard.getGame(
-                            Team.BRAZIL,
-                            Team.ARGENTINA
-                    );
-                });
+                () -> scoreboard.getGame(
+                        Team.BRAZIL,
+                        Team.ARGENTINA
+                ));
     }
 
     @Test
@@ -108,9 +106,7 @@ class ScoreboardTest {
         );
 
         // given
-        scoreboard.updateScore(Team.ARGENTINA);
-        scoreboard.updateScore(Team.ARGENTINA);
-        scoreboard.updateScore(Team.AUSTRALIA);
+        scoreboard.updateScore(Team.ARGENTINA, 2, 3);
 
         // then
         assertEquals(
@@ -122,7 +118,7 @@ class ScoreboardTest {
         );
 
         assertEquals(
-                1,
+                3,
                 scoreboard.getGame(
                         Team.ARGENTINA,
                         Team.AUSTRALIA
@@ -142,66 +138,7 @@ class ScoreboardTest {
         // when, then
         assertThrows(
                 GameNotFoundException.class,
-                () -> scoreboard.updateScore(Team.BRAZIL)
+                () -> scoreboard.updateScore(Team.BRAZIL, 1, 1)
         );
-    }
-
-    @Test
-    void shouldGetAllGamesSortedByTotalScore() {
-        // given
-        var scoreboard = new Scoreboard();
-
-        var argentinaAustralia = new Game(Team.ARGENTINA, Team.AUSTRALIA);
-        argentinaAustralia.scoreHome();
-        argentinaAustralia.scoreHome();
-        argentinaAustralia.scoreHome();
-        argentinaAustralia.scoreHome();
-        argentinaAustralia.scoreHome();
-
-        var mexicoCanada = new  Game(Team.MEXICO, Team.CANADA);
-        mexicoCanada.scoreHome();
-        mexicoCanada.scoreAway();
-
-        var spainBrazil = new  Game(Team.SPAIN, Team.BRAZIL);
-        spainBrazil.scoreAway();
-        spainBrazil.scoreAway();
-
-        var uruguayItaly = new  Game(Team.URUGUAY, Team.ITALY);
-        uruguayItaly.scoreHome();
-        uruguayItaly.scoreAway();
-        uruguayItaly.scoreAway();
-
-        var expectedGames = new ArrayList<Game>();
-        expectedGames.add(argentinaAustralia);
-        expectedGames.add(spainBrazil);
-        expectedGames.add(uruguayItaly);
-        expectedGames.add(mexicoCanada);
-
-        // when
-        scoreboard.startNewGame(Team.MEXICO, Team.CANADA);
-        scoreboard.startNewGame(Team.ARGENTINA, Team.AUSTRALIA);
-        scoreboard.startNewGame(Team.URUGUAY, Team.ITALY);
-        scoreboard.startNewGame(Team.SPAIN, Team.BRAZIL);
-
-        scoreboard.updateScore(Team.ARGENTINA);
-        scoreboard.updateScore(Team.ARGENTINA);
-        scoreboard.updateScore(Team.MEXICO);
-        scoreboard.updateScore(Team.ITALY);
-        scoreboard.updateScore(Team.ITALY);
-        scoreboard.updateScore(Team.ARGENTINA);
-        scoreboard.updateScore(Team.BRAZIL);
-        scoreboard.updateScore(Team.ARGENTINA);
-        scoreboard.updateScore(Team.ARGENTINA);
-        scoreboard.updateScore(Team.BRAZIL);
-        scoreboard.updateScore(Team.URUGUAY);
-        scoreboard.updateScore(Team.BRAZIL);
-        scoreboard.updateScore(Team.SPAIN);
-        scoreboard.updateScore(Team.SPAIN);
-        scoreboard.updateScore(Team.SPAIN);
-        scoreboard.updateScore(Team.CANADA);
-        scoreboard.updateScore(Team.ARGENTINA);
-
-        // then
-        assertEquals(expectedGames, scoreboard.getGames());
     }
 }
