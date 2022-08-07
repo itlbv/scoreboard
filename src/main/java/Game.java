@@ -5,11 +5,15 @@ class Game {
     private final Team home;
     private final Team away;
 
-    private final int[] score = {0, 0};
+    private int[] score = {0, 0};
 
     public Game(Team home, Team away) {
         this.home = home;
         this.away = away;
+    }
+
+    public void updateScore(int[] newScore) {
+        this.score = newScore;
     }
 
     public void scoreHome() {
