@@ -29,7 +29,7 @@ public class Scoreboard {
 
     public void finishGame(Team home, Team away) {
         var success =
-                getGames().removeIf(game ->
+                games.removeIf(game ->
                         game.getHome() == home
                                 && game.getAway() == away
                 );
@@ -41,11 +41,11 @@ public class Scoreboard {
     }
 
     public List<Game> getGames() {
-        return games;
+        return List.copyOf(games);
     }
 
     public int[] updateScore(Team team) {
-        var game = getGames().stream()
+        var game = games.stream()
                 .filter(g ->
                         g.getHome() == team
                                 || g.getAway() == team)
