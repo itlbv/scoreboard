@@ -2,11 +2,19 @@ import exceptions.GameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Scoreboard {
     private final List<Game> games = new ArrayList<>();
 
     public void startNewGame(Team home, Team away) {
+        if (getGameByTeam(home).isPresent()
+                || getGameByTeam(away).isPresent()) {
+            throw new IllegalArgumentException(
+                    String.format("There is an already active game with one or both of supplied teams. The teams are: %s, %s", home, away)
+            );
+        }
+
         games.add(new Game(home, away));
     }
 
@@ -25,6 +33,14 @@ public class Scoreboard {
         }
 
         return game;
+    }
+
+    private Optional<Game> getGameByTeam(Team team) {
+        return games.stream()
+                .filter(g ->
+                        g.getHome() == team
+                                || g.getAway() == team)
+                .findAny();
     }
 
     public void finishGame(Team home, Team away) {
