@@ -41,4 +41,19 @@ class GameTest {
         assertEquals(2, game.getHomeScore());
         assertEquals(3, game.getAwayScore());
     }
+
+    @Test
+    void shouldNotUpdateScoreWhenLessThanZero() {
+        // given
+        var game = new Game(
+                Team.ARGENTINA,
+                Team.AUSTRALIA
+        );
+
+        // when, then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> game.updateScore(new int[]{-1, 1})
+        );
+    }
 }
