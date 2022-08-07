@@ -7,12 +7,18 @@ class Game {
 
     private int[] score = {0, 0};
 
-    public Game(Team home, Team away) {
+    Game(Team home, Team away) {
         this.home = home;
         this.away = away;
     }
 
-    public void updateScore(int[] newScore) {
+    public void updateScore(int[] newScore) throws IllegalArgumentException {
+        if (newScore[0] < 0
+                || newScore[1] < 0) {
+            throw new IllegalArgumentException(
+                    String.format("Score can't be less than 0! Provided score is: %s", Arrays.toString(newScore))
+            );
+        }
         this.score = newScore;
     }
 
