@@ -61,11 +61,7 @@ public class Scoreboard {
     }
 
     public void updateScore(Team team, int homeScore, int awayScore) {
-        var game = games.stream()
-                .filter(g ->
-                        g.getHome() == team
-                                || g.getAway() == team)
-                .findAny()
+        var game = getGameByTeam(team)
                 .orElseThrow(() -> new GameNotFoundException(
                         String.format("No games of %s team found", team)
                 ));
