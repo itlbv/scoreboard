@@ -18,6 +18,10 @@ public class Scoreboard {
         games.add(new Game(home, away));
     }
 
+    public List<Game> getGames() {
+        return List.copyOf(games);
+    }
+
     public Game getGame(Team home, Team away) {
         var game = games.stream()
                 .filter(g -> g.getHome() == home)
@@ -54,10 +58,6 @@ public class Scoreboard {
                     String.format("Game not found for teams %s and %s", home, away)
             );
         }
-    }
-
-    public List<Game> getGames() {
-        return List.copyOf(games);
     }
 
     public void updateScore(Team team, int homeScore, int awayScore) {
