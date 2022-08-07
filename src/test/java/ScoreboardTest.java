@@ -32,6 +32,36 @@ class ScoreboardTest {
     }
 
     @Test
+    void shouldNotStartNewGameIfOneOfTeamsAlreadyPlaying() {
+        // given
+        var scoreboard = new Scoreboard();
+        scoreboard.startNewGame(
+                Team.ARGENTINA,
+                Team.AUSTRALIA
+        );
+        scoreboard.startNewGame(
+                Team.MEXICO,
+                Team.CANADA
+        );
+
+        // when, then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> scoreboard.startNewGame(
+                        Team.AUSTRALIA,
+                        Team.ITALY
+                )
+        );
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> scoreboard.startNewGame(
+                        Team.URUGUAY,
+                        Team.MEXICO
+                )
+        );
+    }
+
+    @Test
     void shouldThrowWhenGameNotFound() {
         // given
         var scoreboard = new Scoreboard();
