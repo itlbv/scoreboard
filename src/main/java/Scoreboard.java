@@ -44,7 +44,7 @@ public class Scoreboard {
         return List.copyOf(games);
     }
 
-    public int[] updateScore(Team team) {
+    public void updateScore(Team team, int homeScore, int awayScore) {
         var game = games.stream()
                 .filter(g ->
                         g.getHome() == team
@@ -54,15 +54,9 @@ public class Scoreboard {
                         String.format("No games of %s team found", team)
                 ));
 
-        if (team == game.getHome()) {
-            game.scoreHome();
-        } else {
-            game.scoreAway();
-        }
+        game.updateScore(new int[]{homeScore, awayScore});
 
         sortGamesByTotalScoreAndLastUpdated(game);
-
-        return new int[] {game.getHomeScore(), game.getAwayScore()};
     }
 
     private void sortGamesByTotalScoreAndLastUpdated(Game lastUpdatedGame) {
