@@ -1,6 +1,7 @@
 import exceptions.GameNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,26 +68,15 @@ public class Scoreboard {
                 ));
 
         game.updateScore(new int[]{homeScore, awayScore});
-
-        sortGamesByTotalScoreAndLastUpdated(game);
+        sortGamesByTotalScoreAndLastStarted();
     }
 
-    private void sortGamesByTotalScoreAndLastUpdated(Game lastUpdatedGame) {
-        var i = -1;
-        while (true) {
-            i++;
-            var currentGame = games.get(i);
-
-            if (currentGame == lastUpdatedGame) {
-                break;
-            }
-
-            if (currentGame.getTotalScore() <= lastUpdatedGame.getTotalScore()) {
-                // swap games
-                games.remove(lastUpdatedGame);
-                games.add(i, lastUpdatedGame);
-                i = -1;
-            }
-        }
+    private void sortGamesByTotalScoreAndLastStarted() {
+        games.sort(
+                Comparator.comparingInt(Game::getTotalScore).reversed()
+                        .thenComparing(
+                                Comparator.comparing(Game::getStartedTimestamp).reversed()
+                        )
+        );
     }
 }
