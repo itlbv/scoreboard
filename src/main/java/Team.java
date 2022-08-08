@@ -3,6 +3,8 @@ public enum Team {
     AUSTRALIA,
     BRAZIL,
     CANADA,
+    GERMANY,
+    FRANCE,
     ITALY,
     MEXICO,
     SPAIN,
