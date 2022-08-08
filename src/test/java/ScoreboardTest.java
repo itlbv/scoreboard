@@ -227,19 +227,19 @@ class ScoreboardTest {
     @Test
     void shouldGetAllGamesSortedByTotalScoreAndStartTime() {
         // given
-        var mexicoCanada = new  Game(Team.MEXICO, Team.CANADA);
+        var mexicoCanada = new Game(Team.MEXICO, Team.CANADA);
         mexicoCanada.updateScore(new int[]{0, 5});
 
-        var spainBrazil = new  Game(Team.SPAIN, Team.BRAZIL);
+        var spainBrazil = new Game(Team.SPAIN, Team.BRAZIL);
         spainBrazil.updateScore(new int[]{10, 2});
 
-        var germanyFrance = new  Game(Team.GERMANY, Team.FRANCE);
+        var germanyFrance = new Game(Team.GERMANY, Team.FRANCE);
         germanyFrance.updateScore(new int[]{2, 2});
 
-        var uruguayItaly = new  Game(Team.URUGUAY, Team.ITALY);
+        var uruguayItaly = new Game(Team.URUGUAY, Team.ITALY);
         uruguayItaly.updateScore(new int[]{6, 6});
 
-        var argentinaAustralia = new  Game(Team.ARGENTINA, Team.AUSTRALIA);
+        var argentinaAustralia = new Game(Team.ARGENTINA, Team.AUSTRALIA);
         argentinaAustralia.updateScore(new int[]{3, 1});
 
         var expectedGamesInOrder = new ArrayList<Game>();
