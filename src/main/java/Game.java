@@ -1,3 +1,4 @@
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -5,11 +6,14 @@ class Game {
     private final Team home;
     private final Team away;
 
+    private final Instant startedTimestamp;
+
     private int[] score = {0, 0};
 
     Game(Team home, Team away) {
         this.home = home;
         this.away = away;
+        this.startedTimestamp = Instant.now();
     }
 
     public void updateScore(int[] newScore) throws IllegalArgumentException {
@@ -20,14 +24,6 @@ class Game {
             );
         }
         this.score = newScore;
-    }
-
-    public void scoreHome() {
-        score[0]++;
-    }
-
-    public void scoreAway() {
-        score[1]++;
     }
 
     public Team getHome() {
@@ -50,6 +46,10 @@ class Game {
         return score[0] + score[1];
     }
 
+    public Instant getStartedTimestamp() {
+        return startedTimestamp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,6 +68,7 @@ class Game {
         return "Game{" +
                 "home=" + home +
                 ", away=" + away +
+                ", startedTimestamp=" + startedTimestamp +
                 ", score=" + Arrays.toString(score) +
                 '}';
     }
