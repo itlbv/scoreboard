@@ -128,14 +128,14 @@ class ScoreboardTest {
 
     @Test
     void shouldUpdateScore() {
-        // when
+        // given
         var scoreboard = new Scoreboard();
         scoreboard.startNewGame(
                 Team.ARGENTINA,
                 Team.AUSTRALIA
         );
 
-        // given
+        // when
         scoreboard.updateScore(Team.ARGENTINA, 2, 3);
 
         // then
