@@ -23,22 +23,6 @@ public class Scoreboard {
         return List.copyOf(games);
     }
 
-    public Game getGame(Team home, Team away) {
-        var game = games.stream()
-                .filter(g -> g.getHome() == home)
-                .findAny()
-                .orElseThrow(() -> new GameNotFoundException(
-                        String.format("Game not found for team %s", home)
-                ));
-
-        if (game.getAway() != away) {
-            throw new GameNotFoundException(
-                    String.format("Found game %s, which does not match with provided away team %s", game, away)
-            );
-        }
-
-        return game;
-    }
 
     private Optional<Game> getGameByTeam(Team team) {
         return games.stream()

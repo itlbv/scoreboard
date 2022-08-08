@@ -22,15 +22,14 @@ class ScoreboardTest {
         );
 
         // then
-        assertEquals(
-                scoreboard.getGame(
-                        Team.ARGENTINA,
-                        Team.AUSTRALIA
-                ),
-                new Game(
-                        Team.ARGENTINA,
-                        Team.AUSTRALIA
-                )
+        assertTrue(
+                scoreboard
+                        .getGames()
+                        .stream()
+                        .anyMatch(g ->
+                                g.getHome() == Team.ARGENTINA
+                                        && g.getAway() == Team.AUSTRALIA
+                        )
         );
     }
 
@@ -62,26 +61,6 @@ class ScoreboardTest {
                         Team.MEXICO
                 )
         );
-    }
-
-    @Test
-    void shouldThrowWhenGameNotFound() {
-        // given
-        var scoreboard = new Scoreboard();
-
-        // when
-        scoreboard.startNewGame(
-                Team.ARGENTINA,
-                Team.AUSTRALIA
-        );
-
-        // then
-        assertThrows(
-                GameNotFoundException.class,
-                () -> scoreboard.getGame(
-                        Team.BRAZIL,
-                        Team.ARGENTINA
-                ));
     }
 
     @Test
@@ -139,20 +118,23 @@ class ScoreboardTest {
         scoreboard.updateScore(Team.ARGENTINA, 2, 3);
 
         // then
+        var game = scoreboard
+                .getGames()
+                .stream()
+                .filter(g ->
+                        g.getHome() == Team.ARGENTINA
+                                && g.getAway() == Team.AUSTRALIA)
+                .findAny()
+                .orElseThrow(() -> new GameNotFoundException("Game not found!"));
+
         assertEquals(
                 2,
-                scoreboard.getGame(
-                        Team.ARGENTINA,
-                        Team.AUSTRALIA
-                ).getHomeScore()
+                game.getHomeScore()
         );
 
         assertEquals(
                 3,
-                scoreboard.getGame(
-                        Team.ARGENTINA,
-                        Team.AUSTRALIA
-                ).getAwayScore()
+                game.getAwayScore()
         );
     }
 
